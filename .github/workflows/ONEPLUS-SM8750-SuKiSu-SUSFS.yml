@@ -23,9 +23,14 @@ on:
         required: true
         default: '6.6'
       KERNEL_NAME:
-        description: "修改内核名称"
+        description: "修改内核名称（只可修改末尾）"
         required: true
         default: '-android15-8-g013ec21bba94-abogki383916444'
+      KERNELS_NAME:
+        description: "完全自定义内核名称"
+        required: true
+        default: '-android15-8-g013ec21bba94-abogki383916444'
+
 
 jobs:
   build:
@@ -151,7 +156,7 @@ jobs:
         run: |
          cd kernel_workspace/kernel_platform
          sed -i 's/res="\$res\$(cat "\$file")"/res="${{ github.event.inputs.KERNEL_NAME }}"/g' ./common/scripts/setlocalversion
-         sudo sed -i 's/-android15-8-g013ec21bba94-abogki383916444/-13香-/g' ./common/scripts/setlocalversion
+         sudo sed -i "s#-android15-8-g013ec21bba94-abogki383916444#${{ github.event.inputs.KERNELS_NAME }}#g" ./common/scripts/setlocalversion
 
 
       - name: Add sched_ext
