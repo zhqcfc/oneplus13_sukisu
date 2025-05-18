@@ -26,6 +26,10 @@ on:
         description: "内核名称修改(中文不行)"
         required: true
         default: '-android15-8-g013ec21bba94-abogki383916444'
+      KERNEL_TIME:
+       description: "内核构建日期更改"
+       required: true
+       default: 'Tue Dec 17 23:36:49 UTC 2024'
 
 
 jobs:
@@ -168,7 +172,7 @@ jobs:
       - name: Build kernel
         run: |
          cd kernel_workspace/kernel_platform/common
-         sed -i '30s/UTS_VERSION/"#1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024"/' init/version-timestamp.c
+         sed -i '30s/UTS_VERSION/"#1 SMP PREEMPT ${{ github.event.inputs.KERNEL_TIME }}"/' init/version-timestamp.c
          cd kernel_workspace/kernel_platform
          tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
