@@ -164,11 +164,6 @@ jobs:
          cp -r ./sched_ext/* ./common/kernel/sched
          rm -rf ./sched_ext/.git
          cd common/kernel/sched
-
-      - name: Force UTS_VERSION in Makefile
-        run: |
-         cd kernel_workspace/kernel_platform/common
-         echo "UTS_VERSION := #1 Tue Dec 17 23:36:49 UTC 2024" >> Makefile
                    
       - name: Build kernel
         run: |
