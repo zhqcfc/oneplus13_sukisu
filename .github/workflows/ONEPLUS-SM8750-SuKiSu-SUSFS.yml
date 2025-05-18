@@ -132,9 +132,7 @@ jobs:
         run: |
           cd kernel_workspace/kernel_platform/common
             cp ../../SukiSU_patch/other/zram/zram_patch/${{ github.event.inputs.KERNEL_VERSION }}/lz4kd.patch ./
-            echo "正在打lz4kd补丁"
             patch -p1 -F 3 < lz4kd.patch || true
-            echo '完成LZ4KD补丁'
            
       - name: Add SUSFS Configuration Settings
         run: |
@@ -203,7 +201,7 @@ jobs:
          cd kernel_workspace/kernel_platform/common
          sed -i '30s/UTS_VERSION/"#1 SMP PREEMPT ${{ github.event.inputs.KERNEL_TIME }}"/' init/version-timestamp.c
          cd ../  
-         tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
+         tools/bazel run --config=fast  --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
       - name: Make AnyKernel3
         run: |
