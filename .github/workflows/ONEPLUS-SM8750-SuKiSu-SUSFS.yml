@@ -117,7 +117,7 @@ jobs:
         run: |
           cd kernel_workspace/kernel_platform
           echo "CONFIG_KSU=y" >> ./common/arch/arm64/configs/gki_defconfig
-          #echo "CONFIG_KPM=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_KPM=n" >> ./common/arch/arm64/configs/gki_defconfig
 
           # Add VFS configuration settings
           echo "CONFIG_KSU_SUSFS_SUS_SU=n" >> ./common/arch/arm64/configs/gki_defconfig
