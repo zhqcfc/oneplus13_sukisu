@@ -173,7 +173,7 @@ jobs:
         run: |
          cd kernel_workspace/kernel_platform/common
          sed -i '30s/UTS_VERSION/"#1 SMP PREEMPT ${{ github.event.inputs.KERNEL_TIME }}"/' init/version-timestamp.c
-         cd kernel_workspace/kernel_platform
+         cd ../  
          tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
       - name: Make AnyKernel3
