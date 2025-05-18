@@ -164,12 +164,16 @@ jobs:
          cp -r ./sched_ext/* ./common/kernel/sched
          rm -rf ./sched_ext/.git
          cd common/kernel/sched
+
+      - name: Force UTS_VERSION in Makefile
+        run: |
+         cd kernel_workspace/kernel_platform/common
+         echo "UTS_VERSION := #1 Tue Dec 17 23:36:49 UTC 2024" >> Makefile
                    
       - name: Build kernel
         run: |
-         export KBUILD_BUILD_TIMESTAMP="2024-12-17 23:36:49"
          cd kernel_workspace/kernel_platform
-         tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
+         tools/bazel run --config=fast --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
       - name: Make AnyKernel3
         run: |
