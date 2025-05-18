@@ -30,6 +30,23 @@ on:
        description: "内核构建日期更改"
        required: true
        default: 'Tue Dec 17 23:36:49 UTC 2024'
+      enable_feature_x:
+       description: "是否启用kpm"
+       required: false
+       default: false
+       type: boolean
+      enable_feature_y:
+       description: "是否启用lz4kd"
+       required: false
+       default: false
+       type: boolean
+      enable_feature_z:
+       description: "是否添加风驰驱动"
+       required: false
+       default: false
+       type: boolean
+      
+       
 
 
 jobs:
