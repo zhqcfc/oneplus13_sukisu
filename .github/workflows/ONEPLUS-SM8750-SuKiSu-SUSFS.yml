@@ -164,34 +164,12 @@ jobs:
          cp -r ./sched_ext/* ./common/kernel/sched
          rm -rf ./sched_ext/.git
          cd common/kernel/sched
-
-         
-      - name: Fix mkcompile_h script
-        run: |
-         cd kernel_workspace/kernel_platform/common
-         cp scripts/mkcompile_h scripts/mkcompile_h.orig
-         cat > scripts/mkcompile_h << 'EOF'
-         echo "#define UTS_MACHINE \"aarch64\""
-         echo "#define UTS_VERSION \"#1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024\""
-         echo "#define LINUX_COMPILE_BY \"root\""
-         echo "#define LINUX_COMPILE_HOST \"localhost\""
-         echo "#define LINUX_BUILD_USER \"root@localhost\""
-         echo "#define LINUX_BUILD_NUMBER \"1\""
-         EOF
-         chmod +x scripts/mkcompile_h
-
-      - name: Clean Bazel cache
-        run: |
-         cd kernel_workspace/kernel_platform
-         tools/bazel clean --expunge
-        
+  
       - name: Build kernel
         run: |
-         export KBUILD_BUILD_TIMESTAMP="2024-12-17 23:36:49"
-         export KBUILD_BUILD_USER="root"
-         export KBUILD_BUILD_HOST="localhost"
          cd kernel_workspace/kernel_platform
-         tools/bazel run --config=fast --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
+         sudo timedatectl set-time "2024-12-17 23:36:49"
+         tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
          
       - name: Make AnyKernel3
         run: |
