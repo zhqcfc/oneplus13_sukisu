@@ -171,30 +171,40 @@ jobs:
 
       - name: Build kernel with Clang
         run: |
-          cd kernel_workspace/kernel_platform
-          mkdir -p build
-
-          # 生成配置
-          make O=build ARCH=arm64 LLVM=1 gki_defconfig
-
-          # 开始编译
-          time make -j$(nproc) O=build ARCH=arm64 \
-            LLVM=1 \
-            CC="clang" \
-            LD="ld.lld" \
-            AR="llvm-ar" \
-            NM="llvm-nm" \
-            STRIP="llvm-strip" \
-            OBJCOPY="llvm-objcopy" \
-            OBJDUMP="llvm-objdump" \
-            CROSS_COMPILE="aarch64-linux-gnu-" \
-            CFLAGS="-march=armv8.2-a+crypto+sha2 -O3 -pipe -flto=thin" \
-            2>&1 | tee build.log
-
-          # 错误检查
-          ! grep -qF 'error:' build.log
-          mkdir -p dist
-          cp build/arch/arm64/boot/Image dist/
+         cd kernel_workspace/kernel_platform/common
+         if [ ! -f arch/arm64/configs/gki_defconfig ]; then
+           echo "错误：gki_defconfig 文件未找到！"
+           echo "当前路径：$(pwd)"
+           ls -l arch/arm64/configs/
+           exit 1
+         fi
+         mkdir -p ../../build
+         echo "正在生成编译配置..."
+         make O=../../build ARCH=arm64 LLVM=1 gki_defconfig || {
+         echo "配置生成失败！"
+         exit 1
+         }
+         echo "开始内核编译..."
+         time make -j$(nproc) O=../../build ARCH=arm64 \
+         LLVM=1 \
+         CC="clang" \
+         LD="ld.lld" \
+         AR="llvm-ar" \
+         NM="llvm-nm" \
+         STRIP="llvm-strip" \
+         OBJCOPY="llvm-objcopy" \
+         OBJDUMP="llvm-objdump" \
+         CROSS_COMPILE="aarch64-linux-gnu-" \
+         CFLAGS="-march=armv8.2-a+crypto+sha2 -O3 -pipe -flto=thin" \
+         2>&1 | tee ../../build.log
+         if [ ! -f ../../build/arch/arm64/boot/Image ]; then
+           echo "编译失败！错误日志："
+           grep -i 'error:\|warning:' ../../build.log | sort -u
+           exit 1
+         fi
+         mkdir -p ../../dist
+         cp ../../build/arch/arm64/boot/Image ../../dist/
+         echo "内核镜像已生成：../../dist/Image"
 
       - name: Make AnyKernel3
         run: |
