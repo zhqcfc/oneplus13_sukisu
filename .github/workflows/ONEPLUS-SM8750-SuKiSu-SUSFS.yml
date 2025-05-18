@@ -167,8 +167,12 @@ jobs:
                    
       - name: Build kernel
         run: |
-         cd kernel_workspace/kernel_platform
-         tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist --stamp --embed_label="2024-12-17_23:36:49"
+          export KBUILD_BUILD_TIMESTAMP="2024-12-17 23:36:49"
+          export SOURCE_DATE_EPOCH=1734478609
+          cd kernel_workspace/kernel_platform
+          mkdir -p common/include/generated
+          echo -e '#define UTS_MACHINE "aarch64"\n#define UTS_VERSION "#1 Tue Dec 17 23:36:49 UTC 2024"' > common/include/generated/compile.h
+          tools/bazel run --config=fast --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
       - name: Make AnyKernel3
         run: |
