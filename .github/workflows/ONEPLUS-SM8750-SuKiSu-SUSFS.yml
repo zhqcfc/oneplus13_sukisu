@@ -23,7 +23,7 @@ on:
         required: true
         default: '6.6'
       KERNELS_NAME:
-        description: "默认原厂内核名称"
+        description: "默认原厂内核名称(修改这里没用)"
         required: true
         default: "-android15-8-g013ec21bba94-abogki383916444"
       KERNEL_NAME:
