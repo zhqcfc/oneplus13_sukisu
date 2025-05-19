@@ -29,7 +29,7 @@ on:
       KERNEL_TIME:
        description: "内核构建日期更改(默认为原厂)"
        required: true
-       default: 'Tue Dec 17 23:36:49 UTC 2024'
+       default: '2024-12-17 23:36:49 UTC'
       enable_feature_x:
        description: "是否启用kpm"
        required: false
@@ -195,20 +195,16 @@ jobs:
          cp -r ./sched_ext/* ./common/kernel/sched
          rm -rf ./sched_ext/.git
          cd common/kernel/sched
-                  
-      - name: Set build timestamp
-        run: |
-          echo "设置内核时间为 Tue Dec 17 23:36:49 UTC 2024"
-          export SOURCE_DATE_EPOCH=$(date -d "2024-12-17 23:36:49 UTC" +%s)
+      - name: Set Kernel build timestamp
+        run: |
+          export SOURCE_DATE_EPOCH=$(date -d "${{ github.event.inputs.KERNEL_TIME }}" +%s)
           echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH" >> $GITHUB_ENV
-          
+      - name: Build Kernel
+        run: |
+           export SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH}
+           cd kernel_workspace/kernel_platform
+           tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
-      - name: Build kernel
-        run: |
-          export SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH}
-          cd kernel_workspace/kernel_platform
-          tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
-      
       - name: Make AnyKernel3
         run: |
          cd kernel_workspace/kernel_platform/dist/
