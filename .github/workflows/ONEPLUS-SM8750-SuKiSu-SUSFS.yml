@@ -1,4 +1,4 @@
-name: 一加13构建
+name: 一加13和a5p构建
 on:
   workflow_dispatch:
     inputs:
@@ -7,9 +7,13 @@ on:
         required: true
         default: 'sm8750'
       FEIL:
+        type: choice
         description: "配置文件"
         required: true
         default: 'oneplus_13'
+        options: 
+         - oneplus_13
+         - oneplus_ace5_pro
       CPUD:
         description: "处理器代号"
         required: true
