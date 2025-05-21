@@ -28,7 +28,7 @@ on:
         default: '6.6'
       KERNEL_NAME:
         description: "内核名称修改(中文不行)"
-        required: true
+        required: false
         default: '-By-kuan-FutabaWa'
       KERNEL_TIME:
        description: "内核构建日期更改(默认为原厂)"
