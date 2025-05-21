@@ -137,6 +137,25 @@ jobs:
           cd kernel_workspace/kernel_platform/common
             cp ../../SukiSU_patch/other/zram/zram_patch/${{ github.event.inputs.KERNEL_VERSION }}/lz4kd.patch ./
             patch -p1 -F 3 < lz4kd.patch || true
+#add -Hide Stuff
+      - name: Apply Hide Stuff Patches
+        run: |
+          cd kernel_workspace/kernel_platform/common
+          cp ../../SukiSU_patch/69_hide_stuff.patch ./
+          echo "正在打隐藏应用补丁"
+          patch -p1 -F 3 < 69_hide_stuff.patch
+          echo "隐藏应用_patch完成"
+          
+#add
+      - name: Apply VFS
+        run: |
+          cd kernel_workspace/kernel_platform/common
+          if [ "${{ github.event.inputs.VFS }}" = "true" ]; then
+            cp ../../SukiSU_patch/hooks/syscall_hooks.patch ./
+            echo "正在打vfs补丁"
+            patch -p1 -F 3 < syscall_hooks.patch
+            echo "vfs_patch完成"
+          fi
            
       - name: Add SUSFS Configuration Settings
         run: |
@@ -147,7 +166,7 @@ jobs:
           echo "CONFIG_KSU_SUSFS_SUS_SU=n" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_MANUAL_HOOK=y" >> ./common/arch/arm64/configs/gki_defconfig
           
-          # Add SUSFS configuration settings
+          # Add SUSFS configuration settings   
           echo "CONFIG_KSU_SUSFS=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> ./common/arch/arm64/configs/gki_defconfig
