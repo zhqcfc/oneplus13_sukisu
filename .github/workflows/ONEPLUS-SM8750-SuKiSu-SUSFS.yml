@@ -1,4 +1,4 @@
-name: 一加13和a5p构建
+name: 一加13构建
 on:
   workflow_dispatch:
     inputs:
@@ -7,13 +7,9 @@ on:
         required: true
         default: 'sm8750'
       FEIL:
-        type: choice
         description: "配置文件"
         required: true
         default: 'oneplus_13'
-        options: 
-         - oneplus_13
-         - oneplus_ace5_pro
       CPUD:
         description: "处理器代号"
         required: true
@@ -31,13 +27,9 @@ on:
         required: true
         default: '-By-kuan-FutabaWa'
       KERNEL_TIME:
-       type: choice
-       description: "内核构建日期更改(默认显示的是13原厂，a5p选第二个)"
+       description: "内核构建日期更改(默认为原厂)"
        required: true
        default: '2024-12-17 23:36:49 UTC'
-       options: 
-       - 2024-12-17 23:36:49 UTC
-       - 2024-12-4 02:11:16 UTC
       enable_feature_x:
        description: "是否启用kpm"
        required: false
