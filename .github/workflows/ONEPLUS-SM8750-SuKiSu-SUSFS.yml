@@ -31,9 +31,13 @@ on:
         required: true
         default: '-By-kuan-FutabaWa'
       KERNEL_TIME:
-       description: "内核构建日期更改(默认为原厂)"
+       type: choice
+       description: "内核构建日期更改(默认显示的是13原厂，a5p选第二个)"
        required: true
        default: '2024-12-17 23:36:49 UTC'
+       options: 
+       - 2024-12-17 23:36:49 UTC
+       - 2024-12-4 02:11:16 UTC
       enable_feature_x:
        description: "是否启用kpm"
        required: false
