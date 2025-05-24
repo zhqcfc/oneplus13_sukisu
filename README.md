@@ -1,1 +1,1 @@
-# oneplus_13 and oneplus_ace5_pro sukisu
+# oneplus_13,13t,a5p sukisu
