@@ -1,4 +1,4 @@
-name: oneplus_13构建 
+name: oneplus_13
 on:
   workflow_dispatch:
     inputs:
