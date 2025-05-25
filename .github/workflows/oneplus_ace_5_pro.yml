@@ -1,4 +1,4 @@
-name: a5p构建
+name: oneplus_ace_5_pro
 on:
   workflow_dispatch:
     inputs:
