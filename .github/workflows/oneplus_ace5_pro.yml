@@ -1,4 +1,4 @@
-name: oneplus_ace_5_pro
+name: oneplus_ace5_pro
 on:
   workflow_dispatch:
     inputs:
