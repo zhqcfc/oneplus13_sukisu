@@ -1,0 +1,33 @@
+name: 构建全部
+on:
+  workflow_dispatch:
+    inputs:
+      OnePlus13:
+        description: "OnePlus13"
+        type: boolean
+        default: false
+      OnePlus13T:
+        description: "OnePlus13T"
+        type: boolean
+        default: false
+      OnePlusAce5Pro:
+        description: "OnePlus Ace 5 Pro"
+        type: boolean
+        default: false
+      
+
+jobs:
+  OnePlus13:
+    if: ${{ github.event.inputs.OnePlus13 == 'true' }}
+    uses: ./.github/workflows/OnePlus13.yml
+    secrets: inherit
+    
+  OnePlus13T:
+    if: ${{ github.event.inputs.OnePlus13T == 'true' }}
+    uses: ./.github/workflows/OnePlus13T.yml
+    secrets: inherit
+    
+  OnePlusAce5Pro:
+    if: ${{ github.event.inputs.OnePlusAce5Pro == 'true' }}
+    uses: ./.github/workflows/OnePlusAce5Pro.yml
+    secrets: inherit
