@@ -24,7 +24,7 @@ jobs:
     
   OnePlus13T:
     if: ${{ github.event.inputs.OnePlus13T == 'true' }}
-    uses: ./.github/workflows/oneplus13_(t).yml
+    uses: ./.github/workflows/oneplus_13_(t).yml
     secrets: inherit
     
   OnePlusAce5Pro:
