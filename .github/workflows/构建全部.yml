@@ -19,15 +19,15 @@ on:
 jobs:
   OnePlus13:
     if: ${{ github.event.inputs.OnePlus13 == 'true' }}
-    uses: ./.github/workflows/OnePlus13.yml
+    uses: ./.github/workflows/oneplus_13.yml
     secrets: inherit
     
   OnePlus13T:
     if: ${{ github.event.inputs.OnePlus13T == 'true' }}
-    uses: ./.github/workflows/OnePlus13_(t).yml
+    uses: ./.github/workflows/oneplus13_(t).yml
     secrets: inherit
     
   OnePlusAce5Pro:
     if: ${{ github.event.inputs.OnePlusAce5Pro == 'true' }}
-    uses: ./.github/workflows/OnePlusAce5Pro.yml
+    uses: ./.github/workflows/oneplus_ace5_pro.yml
     secrets: inherit
