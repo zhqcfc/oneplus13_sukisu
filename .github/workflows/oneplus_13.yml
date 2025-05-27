@@ -289,6 +289,8 @@ jobs:
            cd kernel_workspace/kernel_platform
            tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
 
+     
+
       - name: Make AnyKernel3
         run: |
          cd kernel_workspace/kernel_platform/dist/
@@ -300,7 +302,7 @@ jobs:
          
       - name: Make AnyKernel3
         run: |
-         git clone https://github.com/Kernel-SU/AnyKernel3.git --depth=1      
+         git clone https://github.com/HanKuCha/AnyKernel3.git --depth=1      
          rm -rf ./AnyKernel3/.git
          rm -rf ./AnyKernel3/push.sh
          cp kernel_workspace/kernel_platform/dist/Image ./AnyKernel3/
