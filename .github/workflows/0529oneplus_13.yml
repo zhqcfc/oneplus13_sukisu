@@ -4,26 +4,26 @@ on:
     inputs:
       KERNEL_SUFFIX:
         description: '内核后缀修改(可改中文和emoji)'
-        required: true
-        default: '-酷安FutabaWa'
+        required: false
+        default: ''
       KERNEL_TIME:
        description: "内核构建日期更改(默认为原厂)"
        required: true
        default: '2024-12-17 23:36:49 UTC'
       enable_feature_x:
        description: "是否启用kpm"
-       required: false
-       default: false
+       required: true
+       default: true
        type: boolean
       enable_feature_y:
        description: "是否启用lz4kd"
-       required: false
-       default: false
+       required: true
+       default: true
        type: boolean
       enable_feature_z:
        description: "是否添加风驰驱动"
-       required: false
-       default: false
+       required: true
+       default: true
        type: boolean
       
        
