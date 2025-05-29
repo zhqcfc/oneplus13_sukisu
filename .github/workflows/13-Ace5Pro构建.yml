@@ -310,6 +310,15 @@ jobs:
            export SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH}
            cd kernel_workspace/kernel_platform
            tools/bazel run --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
+#20250229
+      - name: Apply Linux Patch
+        run: |
+         cd kernel_workspace/kernel_platform/common/out/arch/arm64/boot
+         curl -LO https://github.com/ShirkNeko/SukiSU_KernelPatch_patch/releases/download/0.11-beta/patch_linux
+         chmod +x patch_linux
+         ./patch_linux
+         rm -f Image
+         mv oImage Image
 
       - name: Make AnyKernel3
         run: |
