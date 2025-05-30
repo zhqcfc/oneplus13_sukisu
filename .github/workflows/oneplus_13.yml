@@ -280,7 +280,7 @@ jobs:
       - name: Build Kernel
         run: |
           export SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH}
-          export PATH="/home/runner/work/oneplus13_a5p_sukisu/oneplus13_a5p_sukisu/kernel_workspace/kernel_platform/prebuilts/clang/host/linux-x86/clang-r510928/bin:$PATH"
+          export PATH="/home/runner/work/oneplus13_sukisu/oneplus13_sukisu/kernel_workspace/kernel_platform/prebuilts/clang/host/linux-x86/clang-r510928/bin:$PATH"
           export PATH="/usr/lib/ccache:$PATH"
           sudo apt install libelf-dev
           cd kernel_workspace/kernel_platform/common
